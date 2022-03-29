@@ -17,12 +17,12 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
 
-    - uses: ./.github/actions/set-env-var
+    - uses: turskislab/.github/.github/actions/set-env-var@v3
       with:
         name: my_cache_prefix
         value: ${{ runner.os }}-node${{ inputs.node-version }}
     
-    - uses: ./.github/actions/set-env-var
+    - uses: turskislab/.github/.github/actions/set-env-var@v3
       with:
         name: my_yarn_cache_path
         command: yarn cache dir

@@ -5,7 +5,7 @@ description: Packs backend for deployment and uploads artifact
 runs:
   using: composite
   steps:
-    - uses: turskislab/.github/.github/actions/set-env-var@v1
+    - uses: turskislab/.github/.github/actions/set-env-var@v3
       with:
         name: my_installed_packages_path
         command: pipenv run python -c 'import site; print(site.getsitepackages()[0])'
