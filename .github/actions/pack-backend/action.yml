@@ -1,22 +1,24 @@
 name: pack-backend
-description: Packs up backend for deployment and uploads to artifact.
+description: Packs backend for deployment and uploads artifact
 
 
 runs:
   using: composite
   steps:
-    - uses: ./.github/actions/set-env-var
+    - uses: turskislab/.github/.github/actions/set-env-var@v1
       with:
-        name: my_installed_packages
+        name: my_installed_packages_path
         command: pipenv run python -c 'import site; print(site.getsitepackages()[0])'
 
-    - run: 7z a ../lambda.zip ${{ env.my_installed_packages }}
-      working-directory: ./backend
+    - name: pack dependencies
       shell: bash
+      working-directory: ./backend
+      run: 7z a ../lambda.zip "${{ env.my_installed_packages_path }}"
 
-    - run: 7z a ../lambda.zip -xr'!.venv' migrations ../backend
-      working-directory: ./backend
+    - name: pack source code
       shell: bash
+      working-directory: ./backend
+      run: 7z a ../lambda.zip -xr'!.venv' migrations ../backend
 
     - uses: actions/upload-artifact@v3
       with:

@@ -1,13 +1,14 @@
 name: pack-frontend
-description: Packs up frontend for deployment and uploads to artifact.
+description: Packs frontend for deployment and uploads artifact
 
 
 runs:
   using: composite
   steps:
-    - run: yarn run build --dest ../public
-      working-directory: ./frontend
+    - name: build code
       shell: bash
+      working-directory: ./frontend
+      run: yarn run build --dest ../public
 
     - uses: actions/upload-artifact@v3
       with:
