@@ -21,13 +21,13 @@ runs:
     - name: upload artifact
       shell: bash
       run: >
-        echo aws s3 sync --delete
+        aws s3 sync --delete
         "${{ inputs.artifact-path }}"
         "s3://codeforpoznan-public/${{ inputs.aws-resource-name }}"
 
     - name: refresh CDN
       shell: bash
       run: >
-        echo aws cloudfront create-invalidation
+        aws cloudfront create-invalidation
         --paths "/+"
         --distribution-id "${{ inputs.aws-cloudfront-id }}"
