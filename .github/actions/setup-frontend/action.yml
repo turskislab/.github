@@ -25,7 +25,7 @@ runs:
     - uses: turskislab/.github/.github/actions/set-env-var@v4
       with:
         name: my_cache_prefix
-        value: ${{ runner.os }}-node${{ inputs.node-version }}-${{ inputs-cache-version }}
+        value: ${{ runner.os }}-node${{ inputs.node-version }}-${{ inputs.cache-version }}
     
     - uses: turskislab/.github/.github/actions/set-env-var@v4
       with:
