@@ -5,15 +5,10 @@ description: Packs backend for deployment and uploads artifact
 runs:
   using: composite
   steps:
-    - uses: turskislab/.github/.github/actions/set-env-var@v4
-      with:
-        name: my_installed_packages_path
-        command: pipenv run python -c 'import site; print(site.getsitepackages()[0])'
-
     - name: pack dependencies
       shell: bash
       working-directory: ./backend
-      run: 7z a ../lambda.zip "${{ env.my_installed_packages_path }}"
+      run: 7z a ../lambda.zip ./.venv/lib/python*/site-packages/*
 
     - name: pack source code
       shell: bash
