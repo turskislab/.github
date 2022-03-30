@@ -28,7 +28,7 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
 
-    - uses: turskislab/.github/.github/actions/set-env-var@v3
+    - uses: turskislab/.github/.github/actions/set-env-var@v4
       with:
         name: my_cache_prefix
         value: ${{ runner.os }}-python${{ inputs.python-version }}-${{ inputs.cache-version }}
