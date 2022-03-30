@@ -3,6 +3,11 @@ description: Sets up runner environment for backend code
 
 
 inputs:
+  cache-version:
+    description: Cache version used for invalidation. Example '1'
+    default: '1'
+    required: false
+    type: string
   python-version:
     description: Python version to use. Example '3.8'
     default: '3.8'
@@ -25,20 +30,15 @@ runs:
 
     - uses: turskislab/.github/.github/actions/set-env-var@v3
       with:
-        name: my_python
-        value: python${{ inputs.python-version }}
-
-    - uses: turskislab/.github/.github/actions/set-env-var@v3
-      with:
         name: my_cache_prefix
-        value: ${{ runner.os }}-${{ env.my_python }}
+        value: ${{ runner.os }}-python${{ inputs.python-version }}-${{ inputs.cache-version }}
 
     - uses: actions/cache@v2
       id: cache-pipenv
       with:
         path: |
           ${{ env.pythonLocation }}/bin/pipenv
-          ${{ env.pythonLocation }}/lib/${{ env.my_python }}/site-packages/pipenv
+          ${{ env.pythonLocation }}/lib/python${{ inputs.python-version }}/site-packages/pipenv
         key: ${{ env.my_cache_prefix }}-pipenv-${{ inputs.pipenv-version }}
         restore-keys: ${{ env.my_cache_prefix }}-pipenv-
 
